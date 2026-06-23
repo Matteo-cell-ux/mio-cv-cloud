@@ -1,0 +1,61 @@
+body {
+    background-color: #0b1e3f; /* Dark Blue */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    color: #ffffff;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.scouter {
+    font-size: 5rem;
+    color: #fbbf24; /* Goku Yellow */
+    text-shadow: 4px 4px 0px #ea580c; /* Orange shadow */
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ea580c;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #ea580c;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: transform 0.2s, background-color 0.3s;
+    border: 3px solid #fbbf24;
+}
+
+.button:hover {
+    background-color: #fbbf24;
+    color: #0b1e3f;
+    transform: scale(1.1);
+}
+
+/* Responsive per mobile */
+@media (max-width: 600px) {
+    .scouter { font-size: 4rem; }
+    h1 { font-size: 1.8rem; }
+}
