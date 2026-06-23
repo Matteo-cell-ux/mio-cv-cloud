@@ -8,59 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Matteo Sanna</h1>
-        <p>Junior Cloud Engineer</p>
-    </header>
-
-    <main>
-        <section>
-            <h2>Professional Profile</h2>
-            <p>IT professional with solid experience in international technical support and B2B systems management. Transitioning into Cloud Engineering, with ITIL 4 certification and a strong focus on automation and operational efficiency.</p>
-        </section>
-
-        <section>
-            <h2>Professional Experience</h2>
-            <div class="job">
-                <h3>IT Support Specialist | Baker Hughes</h3>
-                <p>Managed global technical incident lifecycles, ensuring strict SLA compliance and optimizing communication flows between cross-functional teams.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>Visitor Counter</h2>
-            <p>Visite totali: <span id="counter">Caricamento...</span></p>
-        </section>
-    </main>
-
-    <script>
-    const api_url = "https://e2059jv2m5.execute-api.ap-southeast-2.amazonaws.com/prod";
-
-    fetch(api_url, {
-        method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Qui facciamo il parsing del body che è una stringa JSON
-        const body = JSON.parse(data.body);
-        document.getElementById("counter").innerText = body.count;
-    })
-    .catch(error => {
-        console.error('Errore:', error);
-        document.getElementById("counter").innerText = "Errore";
-    });
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matteo SANNA - CV</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <header>
-        <h1>Matteo Sanna</h1>
+        <h1>Giuliano Sanna</h1>
         <p>Junior Cloud Engineer</p>
     </header>
 
