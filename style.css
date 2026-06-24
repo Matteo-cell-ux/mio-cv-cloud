@@ -1,79 +1,357 @@
-/* Reset e configurazione base */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.7;
-    color: #374151; /* Grigio scuro, più leggibile del nero puro */
-    max-width: 700px; /* Più stretto per una lettura professionale tipo "Medium" */
-    margin: 60px auto;
-    padding: 0 20px;
-    background-color: #ffffff;
+:root{
+    --bg:#f5f5f7;
+    --surface:rgba(255,255,255,.65);
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --accent:#0071e3;
+    --shadow:0 30px 80px rgba(0,0,0,.10);
+    --radius:28px;
 }
 
-/* Header pulito */
-header {
-    text-align: left; /* Allineato a sinistra è più professionale */
-    margin-bottom: 60px;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-header h1 { 
-    font-size: 2.5rem; 
-    color: #111827; 
-    letter-spacing: -0.02em;
+html{
+    scroll-behavior:smooth;
 }
 
-header p { 
-    font-size: 1.25rem; 
-    color: #6b7280; 
-    margin-top: 5px;
+body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
 }
 
-/* Sezioni e Tipografia */
-section { margin-bottom: 50px; }
+/* =========================
+   SUBTLE APPLE BACKGROUND
+========================= */
 
-h2 {
-    color: #111827;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e5e7eb;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(0,113,227,.08), transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(120,120,255,.06), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(0,0,0,.05), transparent 50%);
+    z-index:-2;
 }
 
-/* Esperienza Lavorativa: stile "Card" leggera */
-.job {
-    background: #fdfdfd;
-    border: 1px solid #f3f4f6;
-    padding: 20px;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
+/* moving soft light layer */
+body::after{
+    content:"";
+    position:fixed;
+    inset:-50%;
+    background:
+        conic-gradient(
+            from 180deg,
+            rgba(0,113,227,.08),
+            rgba(255,255,255,0),
+            rgba(0,113,227,.06),
+            rgba(255,255,255,0)
+        );
+    animation:slowRotate 30s linear infinite;
+    filter:blur(120px);
+    z-index:-1;
 }
 
-.job:hover { border-color: #d1d5db; }
-
-.job h3 { color: #0078d4; margin-bottom: 8px; }
-
-/* Contatore */
-#counter {
-    font-weight: 700;
-    color: #0078d4;
-    padding: 2px 6px;
-    background: #eff6ff;
-    border-radius: 4px;
+@keyframes slowRotate{
+    to{ transform:rotate(360deg); }
 }
 
-/* Footer moderno */
-footer {
-    margin-top: 80px;
-    padding-top: 20px;
-    border-top: 1px solid #f3f4f6;
-    text-align: center;
-    font-size: 0.875rem;
-    color: #9ca3af;
+/* =========================
+   HEADER
+========================= */
+
+header{
+    text-align:center;
+    padding:140px 20px 80px;
+    position:relative;
 }
 
-/* Responsive: si adatta automaticamente */
-@media (max-width: 600px) {
-    body { margin: 30px auto; }
-    header h1 { font-size: 2rem; }
+/* floating glow behind title */
+header::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    left:50%;
+    top:40%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(0,113,227,.15), transparent 70%);
+    filter:blur(60px);
+    animation:pulseGlow 6s ease-in-out infinite;
+}
+
+@keyframes pulseGlow{
+    50%{
+        transform:translate(-50%,-50%) scale(1.1);
+        opacity:.7;
+    }
+}
+
+header h1{
+    font-size:clamp(3rem,6vw,5rem);
+    font-weight:600;
+    letter-spacing:-2px;
+    color:var(--text);
+    animation:fadeUp 1s ease both;
+}
+
+header p{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:1.2rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    animation:fadeUp 1.2s ease both;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+main{
+    width:min(1000px,92%);
+    margin:auto;
+    display:grid;
+    gap:28px;
+    padding-bottom:100px;
+}
+
+/* =========================
+   APPLE CARDS (MICA STYLE)
+========================= */
+
+section{
+    background:var(--surface);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:var(--radius);
+    padding:40px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+    transition:transform .4s ease, box-shadow .4s ease;
+}
+
+/* soft light sweep */
+section::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:2px;
+    top:0;
+    left:-100%;
+    background:linear-gradient(90deg,transparent,rgba(0,113,227,.4),transparent);
+    animation:scan 6s linear infinite;
+}
+
+/* subtle corner glow */
+section::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    right:-120px;
+    top:-120px;
+    background:radial-gradient(circle, rgba(0,113,227,.08), transparent 60%);
+    filter:blur(30px);
+}
+
+@keyframes scan{
+    to{ left:100%; }
+}
+
+section:hover{
+    transform:translateY(-6px);
+    box-shadow:0 40px 100px rgba(0,0,0,.15);
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h2{
+    font-size:1.4rem;
+    font-weight:600;
+    margin-bottom:18px;
+    letter-spacing:-0.5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+h2::before{
+    content:"";
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 15px rgba(0,113,227,.5);
+}
+
+p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:1rem;
+}
+
+/* =========================
+   JOB CARD
+========================= */
+
+.job{
+    margin-top:20px;
+    padding:22px;
+    border-radius:20px;
+    background:rgba(255,255,255,.7);
+    border:1px solid rgba(0,0,0,.05);
+    transition:.3s ease;
+}
+
+.job:hover{
+    transform:scale(1.01);
+}
+
+.job h3{
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+/* vertical Apple-style accent bar */
+.job::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background:linear-gradient(var(--accent),#5ac8fa);
+    border-radius:20px;
+}
+
+/* =========================
+   VISITOR COUNTER
+========================= */
+
+#counter{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(0,113,227,.08);
+    color:var(--accent);
+    font-weight:600;
+    margin-left:8px;
+    border:1px solid rgba(0,113,227,.15);
+    animation:fadeUp 1.4s ease both;
+}
+
+#counter::before{
+    content:"●";
+    color:#34c759;
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    50%{ opacity:.2; }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+}
+
+footer a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:500;
+    margin:0 10px;
+    position:relative;
+}
+
+footer a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-3px;
+    width:0;
+    height:1px;
+    background:var(--accent);
+    transition:.3s;
+}
+
+footer a:hover::after{
+    width:100%;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   MICRO INTERACTIONS
+========================= */
+
+section, .job{
+    animation:fadeUp .8s ease both;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    header{
+        padding:100px 16px 60px;
+    }
+
+    section{
+        padding:28px;
+        border-radius:22px;
+    }
+
+    header h1{
+        font-size:2.6rem;
+    }
+}
+
+@media(max-width:480px){
+
+    h2{
+        font-size:1.2rem;
+    }
+
+    section{
+        padding:22px;
+    }
+
+    .job{
+        padding:18px;
+    }
 }
