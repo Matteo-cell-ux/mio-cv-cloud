@@ -2,6 +2,12 @@
    RESET
 ================================== */
 
+.highlight {
+    background-color: #ff2a36; /* Il codice colore rosso del tuo screenshot */
+    color: white;              /* Imposta il testo in bianco per contrasto */
+    padding: 0 10px;           /* Aggiunge un po' di respiro ai lati del testo */
+}
+
 *,
 *::before,
 *::after {
