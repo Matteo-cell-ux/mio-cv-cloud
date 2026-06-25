@@ -1,357 +1,262 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+/* ==================================
+   RESET
+================================== */
 
-:root{
-    --bg:#f5f5f7;
-    --surface:rgba(255,255,255,.65);
-    --text:#1d1d1f;
-    --muted:#6e6e73;
-    --accent:#0071e3;
-    --shadow:0 30px 80px rgba(0,0,0,.10);
-    --radius:28px;
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* ==================================
+   VARIABLES
+================================== */
+
+:root {
+    --bg: #ffffff;
+    --text: #000000;
+    --muted: #6f6f6f;
+    --border: #eeeeee;
+    --accent: #ff1f3d;
+
+    --max-width: 1400px;
 }
 
-html{
-    scroll-behavior:smooth;
+/* ==================================
+   BASE
+================================== */
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
-body{
-    font-family:'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
+body {
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-/* =========================
-   SUBTLE APPLE BACKGROUND
-========================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        radial-gradient(circle at 20% 10%, rgba(0,113,227,.08), transparent 40%),
-        radial-gradient(circle at 80% 20%, rgba(120,120,255,.06), transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(0,0,0,.05), transparent 50%);
-    z-index:-2;
+/* selezione rossa */
+::selection {
+    background: var(--accent);
+    color: #fff;
 }
 
-/* moving soft light layer */
-body::after{
-    content:"";
-    position:fixed;
-    inset:-50%;
-    background:
-        conic-gradient(
-            from 180deg,
-            rgba(0,113,227,.08),
-            rgba(255,255,255,0),
-            rgba(0,113,227,.06),
-            rgba(255,255,255,0)
-        );
-    animation:slowRotate 30s linear infinite;
-    filter:blur(120px);
-    z-index:-1;
+/* ==================================
+   TYPOGRAPHY SAFETY
+================================== */
+
+h1, h2, h3 {
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    word-break: break-word;
 }
 
-@keyframes slowRotate{
-    to{ transform:rotate(360deg); }
+p {
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 70ch;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ==================================
+   WRAPPER
+================================== */
 
-header{
-    text-align:center;
-    padding:140px 20px 80px;
-    position:relative;
+header,
+main,
+footer {
+    width: min(92%, var(--max-width));
+    margin: 0 auto;
 }
 
-/* floating glow behind title */
-header::before{
-    content:"";
-    position:absolute;
-    width:500px;
-    height:500px;
-    left:50%;
-    top:40%;
-    transform:translate(-50%,-50%);
-    background:radial-gradient(circle, rgba(0,113,227,.15), transparent 70%);
-    filter:blur(60px);
-    animation:pulseGlow 6s ease-in-out infinite;
+/* ==================================
+   HEADER (RESPONSIVE SAFE)
+================================== */
+
+header {
+    padding: clamp(4rem, 8vw, 8rem) 0;
 }
 
-@keyframes pulseGlow{
-    50%{
-        transform:translate(-50%,-50%) scale(1.1);
-        opacity:.7;
-    }
+header::before {
+    content: "DEPLOYING AT SCALE";
+    display: block;
+
+    color: var(--accent);
+
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+
+    margin-bottom: 2.5rem;
 }
 
-header h1{
-    font-size:clamp(3rem,6vw,5rem);
-    font-weight:600;
-    letter-spacing:-2px;
-    color:var(--text);
-    animation:fadeUp 1s ease both;
+header h1 {
+    font-size: clamp(3.5rem, 10vw, 11rem);
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
-header p{
-    margin-top:12px;
-    color:var(--muted);
-    font-size:1.2rem;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    animation:fadeUp 1.2s ease both;
+header p {
+    margin-top: 2rem;
+    font-size: clamp(1.1rem, 2vw, 1.8rem);
+    max-width: 60ch;
 }
 
-/* =========================
+/* ==================================
    MAIN LAYOUT
-========================= */
+================================== */
 
-main{
-    width:min(1000px,92%);
-    margin:auto;
-    display:grid;
-    gap:28px;
-    padding-bottom:100px;
+main {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 6rem);
+    padding-bottom: 6rem;
 }
 
-/* =========================
-   APPLE CARDS (MICA STYLE)
-========================= */
+/* ==================================
+   SECTIONS SAFE GRID
+================================== */
 
-section{
-    background:var(--surface);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-    border:1px solid rgba(0,0,0,.06);
-    border-radius:var(--radius);
-    padding:40px;
-    box-shadow:var(--shadow);
-    position:relative;
-    overflow:hidden;
-    transition:transform .4s ease, box-shadow .4s ease;
+section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    padding: clamp(3rem, 6vw, 7rem) 0;
+
+    border-top: 1px solid var(--border);
+
+    position: relative;
 }
 
-/* soft light sweep */
-section::before{
-    content:"";
-    position:absolute;
-    width:200%;
-    height:2px;
-    top:0;
-    left:-100%;
-    background:linear-gradient(90deg,transparent,rgba(0,113,227,.4),transparent);
-    animation:scan 6s linear infinite;
+section:first-child {
+    border-top: none;
 }
 
-/* subtle corner glow */
-section::after{
-    content:"";
-    position:absolute;
-    width:300px;
-    height:300px;
-    right:-120px;
-    top:-120px;
-    background:radial-gradient(circle, rgba(0,113,227,.08), transparent 60%);
-    filter:blur(30px);
+/* desktop layout SOLO quando c'è spazio vero */
+@media (min-width: 1024px) {
+    section {
+        grid-template-columns: 320px 1fr;
+        gap: 4rem;
+        align-items: start;
+    }
 }
 
-@keyframes scan{
-    to{ left:100%; }
+/* ==================================
+   TITOLI SEZIONE
+================================== */
+
+section h2 {
+    font-size: clamp(2.2rem, 4.5vw, 5.5rem);
+    font-weight: 900;
 }
 
-section:hover{
-    transform:translateY(-6px);
-    box-shadow:0 40px 100px rgba(0,0,0,.15);
+section h2::before {
+    content: "•";
+    color: var(--accent);
+    margin-right: 0.4rem;
 }
 
-/* =========================
-   TYPOGRAPHY
-========================= */
+/* ==================================
+   TESTI
+================================== */
 
-h2{
-    font-size:1.4rem;
-    font-weight:600;
-    margin-bottom:18px;
-    letter-spacing:-0.5px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+section p {
+    font-size: clamp(1rem, 1.2vw, 1.35rem);
 }
 
-h2::before{
-    content:"";
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 15px rgba(0,113,227,.5);
+/* ==================================
+   JOB
+================================== */
+
+.job h3 {
+    font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
 }
 
-p{
-    color:var(--muted);
-    line-height:1.8;
-    font-size:1rem;
+/* ==================================
+   COUNTER
+================================== */
+
+#counter {
+    color: var(--accent);
+    font-weight: 900;
 }
 
-/* =========================
-   JOB CARD
-========================= */
-
-.job{
-    margin-top:20px;
-    padding:22px;
-    border-radius:20px;
-    background:rgba(255,255,255,.7);
-    border:1px solid rgba(0,0,0,.05);
-    transition:.3s ease;
-}
-
-.job:hover{
-    transform:scale(1.01);
-}
-
-.job h3{
-    font-weight:600;
-    margin-bottom:10px;
-}
-
-/* vertical Apple-style accent bar */
-.job::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:4px;
-    height:100%;
-    background:linear-gradient(var(--accent),#5ac8fa);
-    border-radius:20px;
-}
-
-/* =========================
-   VISITOR COUNTER
-========================= */
-
-#counter{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 14px;
-    border-radius:999px;
-    background:rgba(0,113,227,.08);
-    color:var(--accent);
-    font-weight:600;
-    margin-left:8px;
-    border:1px solid rgba(0,113,227,.15);
-    animation:fadeUp 1.4s ease both;
-}
-
-#counter::before{
-    content:"●";
-    color:#34c759;
-    animation:blink 1.5s infinite;
-}
-
-@keyframes blink{
-    50%{ opacity:.2; }
-}
-
-/* =========================
+/* ==================================
    FOOTER
-========================= */
+================================== */
 
-footer{
-    text-align:center;
-    padding:60px 20px;
-    color:var(--muted);
+footer {
+    padding: clamp(4rem, 8vw, 8rem) 0;
+    border-top: 1px solid var(--border);
 }
 
-footer a{
-    color:var(--accent);
-    text-decoration:none;
-    font-weight:500;
-    margin:0 10px;
-    position:relative;
+footer a {
+    color: var(--text);
+    font-weight: 800;
+    text-decoration: none;
 }
 
-footer a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-3px;
-    width:0;
-    height:1px;
-    background:var(--accent);
-    transition:.3s;
+footer a:hover {
+    color: var(--accent);
 }
 
-footer a:hover::after{
-    width:100%;
+/* ==================================
+   DECORATIVE NUMBERS (SAFE)
+================================== */
+
+@media (min-width: 1200px) {
+
+    section:nth-of-type(2)::after,
+    section:nth-of-type(3)::after,
+    section:nth-of-type(4)::after {
+
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        font-size: clamp(6rem, 10vw, 12rem);
+        font-weight: 900;
+
+        color: #f5f5f5;
+
+        z-index: -1;
+        pointer-events: none;
+
+        line-height: 1;
+    }
+
+    section:nth-of-type(2)::after { content: "01"; }
+    section:nth-of-type(3)::after { content: "02"; }
+    section:nth-of-type(4)::after { content: "03"; }
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* ==================================
+   MOBILE TUNING
+================================== */
 
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+@media (max-width: 768px) {
 
-/* =========================
-   MICRO INTERACTIONS
-========================= */
-
-section, .job{
-    animation:fadeUp .8s ease both;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:768px){
-
-    header{
-        padding:100px 16px 60px;
+    header::before {
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
     }
 
-    section{
-        padding:28px;
-        border-radius:22px;
+    header p {
+        font-size: 1.1rem;
     }
 
-    header h1{
-        font-size:2.6rem;
-    }
-}
-
-@media(max-width:480px){
-
-    h2{
-        font-size:1.2rem;
-    }
-
-    section{
-        padding:22px;
-    }
-
-    .job{
-        padding:18px;
+    section {
+        gap: 1.5rem;
     }
 }
